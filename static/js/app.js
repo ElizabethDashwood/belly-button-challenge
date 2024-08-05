@@ -11,11 +11,16 @@
     });
 
     // get the metadata field
+    let metadataArray = data.map(function(metadata) {
+      return metadata;
+    });
+    
+    console.log("Map:", metadataArray);
     
 
     // Filter the metadata for the object with the desired sample number
-    function popular(id) {
-      return topten.metadata === 1167
+    function otu_id(id) {
+      return metadata.id === 940
     }
 
     // Use d3 to select the panel with id of `#sample-metadata`
@@ -35,13 +40,24 @@ function buildCharts(sample) {
   d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
 
     // Get the samples field
-
+    let samplesArray = data.map(function(samples) {
+      return samples;
+    });
+    
+    console.log("MapSamples:", samplesArray);
 
     // Filter the samples for the object with the desired sample number
+    function sample_values(sample_values) {
+      return sample.sample_values === [163, 126, 113, 78, 71, 51, 50, 47, 40, 40]
+    }
 
+    function otu_labels(otu_labels) {
+      return sample.otu_labels === ["Bacteria","Bacteroidetes","Bacteroidia","Bacteroidales",
+        "Porphyromonadaceae","Porphyromonas","Bacteria","Firmicutes","Clostridia","Clostridiales"]
+    }
 
     // Get the otu_ids, otu_labels, and sample_values
-
+    
 
     // Build a Bubble Chart
 
@@ -50,14 +66,15 @@ function buildCharts(sample) {
     
 
     // For the Bar Chart, map the otu_ids to a list of strings for your yticks
-    let otu_ids = ['OTU 1167', 'OTU 2589', 'OTU 482']
-    let sample_values = [162, 123, 115]
+    let otu_ids = ["OTU 1167", "OTU 2859", "OTU 482", "OTU 2264", "OTU 41", "OTU 1189", "OTU 352",
+       "OTU 189", "OTU 2318", "OTU 1977"]
+    let sample_values = [163, 126, 113, 78, 71, 51, 50, 47, 40, 40]
+    let otu_labels = ["Bacteria","Bacteroidetes","Bacteroidia","Bacteroidales",
+        "Porphyromonadaceae","Porphyromonas","Bacteria","Firmicutes","Clostridia","Clostridiales"]
 
     // Build a Bar Chart
     // Don't forget to slice and reverse the input data appropriately
-    let trace2 = {
-      //x: popularRomans.map(row => row.id),
-      //y: popularRomans.map(row => row.romanSearchResults),
+    let trace2 = {          
       x: otu_ids,
       y: sample_values,
       type: "bar"
